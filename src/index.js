@@ -6,9 +6,9 @@ const getUsers = () => {
   return fs.readFileSync(filePath);
 };
 const server = http.createServer((request, response) => {
-  //   const ip = "http://127.0.0.1:3003";
-  //   const url = new URL(request.url, ip);
-  //   const userName = url.searchParams.get("hello");
+  const ip = "http://127.0.0.1:3003";
+  const url = new URL(request.url, ip);
+  const userName = url.searchParams.get("hello");
 
   if (request.url === "/users") {
     response.statusCode = 200;
@@ -17,11 +17,11 @@ const server = http.createServer((request, response) => {
     response.write(getUsers());
     response.end();
     return;
-  } else if (request.url === "/") {
+  } else if (request.url === `/?hello=${userName}`) {
     response.statuscode = 404;
     response.statusMessage = "OK";
     response.header = "Content-Type: text/plain";
-    response.write("Enter a name");
+    response.write(`Hello, ${userName}`);
     response.end();
     return;
   } else {
