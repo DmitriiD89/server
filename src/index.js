@@ -18,21 +18,36 @@ const server = http.createServer((request, response) => {
     response.end();
     return;
   } else if (request.url === `/?hello=${userName}`) {
-    response.statuscode = 404;
+    response.statuscode = 200;
     response.statusMessage = "OK";
     response.header = "Content-Type: text/plain";
     response.write(`Hello, ${userName}`);
     response.end();
     return;
-  } else {
+  } else if (request.url === "/hello") {
+    response.statuscode = 400;
+    response.statusMessage = "OK";
+    response.header = "Content-Type: text/plain";
+    response.write("Enter name");
+    response.end();
+    return;
+  } else if (request.url) {
     response.status = 200;
     response.statusMessage = "OK";
     response.header = "Content-Type: text/plain";
     response.write("Hello World");
     response.end();
     return;
+  } else {
+    response.status = 500;
+    response.statusMessage = "OK";
+    response.header = "Content-Type: text/plain";
+    response.write("");
+    response.end();
+    return;
   }
 });
-server.listen(3000, () => {
-  console.log("Сервер запущен по адресу http://127.0.0.1:3000");
+server.listen(3003, () => {
+  console.log("Сервер запущен по адресу http://127.0.0.1:3003");
 });
+//Ispravil
